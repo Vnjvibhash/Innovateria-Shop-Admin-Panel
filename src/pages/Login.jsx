@@ -14,7 +14,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const setCheckBoxVal = (val) => {
-    console.log(val.target.checked);
     setCheckBox(val.target.checked);
   };
 
@@ -24,10 +23,12 @@ const Login = () => {
       try {
         const result = await loginUser(values.email, values.password);
         if (result.success) {
-          localStorage.setItem('valid', true);
+            localStorage.setItem('valid', true);
+            console.log('Login successful', result.token);
           if (result.user.role === 'admin') {
-            localStorage.setItem('role', 'admin');
-            navigate('/dashboard');
+            localStorage.setItem('role', result.user.role);
+            localStorage.setItem('token', result.token);
+            navigate('admin/dashboard');
           } else if (result.user.role === 'user') {
             localStorage.setItem('role', 'user');
             navigate('/');

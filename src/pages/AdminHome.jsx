@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill }
-    from 'react-icons/bs'
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line }
-    from 'recharts';
-import axios from 'axios'
-import {getCategories,getUsers} from '../apis/api'
+import {
+    BsFillArchiveFill,
+    BsPeopleFill,
+    BsFillBellFill,
+    BsFillTagFill,
+} from 'react-icons/bs';
+import { FaClipboardCheck, FaBuilding, FaImage } from 'react-icons/fa';
+import { RiPriceTag2Fill } from 'react-icons/ri';
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer,
+    LineChart,
+    Line,
+} from 'recharts';
+import { AiFillAppstore, AiOutlineAppstore } from 'react-icons/ai';
+import { getCategories, getUsers, getSubcategories, getBrands, getCoupons, getPosters, getProducts, getVariantTypes, getVariants } from '../apis/api';
 
 function AdminHome() {
-
     const data = [
         {
             name: 'Page A',
@@ -53,69 +68,129 @@ function AdminHome() {
         },
     ];
 
-    const [categorySize, setCategorySize] = useState(0)
+    const [state, setState] = useState({
+        userSize: 0,
+        categorySize: 0,
+        subCategorySize: 0,
+        variantSize: 0,
+        variantTypeSize: 0,
+        brandSize: 0,
+        posterSize: 0,
+        couponSize: 0,
+        productSize: 0,
+    });
 
     useEffect(() => {
-        getCategoryData();
-        getUserData();
+        getData();
     }, []);
-    
-    const getCategoryData = async () => {
-      try {
-        const response = await getCategories();
-        setCategorySize(response.data.length);
-      } catch (error) {
-        console.error('Error getting data:', error);
-      }
-    };
 
-    const getUserData = async () => {
+    const getData = async () => {
         try {
-            const response = await getUsers();
-            console.log(response.data);
+            const categoryResponse = await getCategories();
+            const userResponse = await getUsers();
+            const subCategoryResponse = await getSubcategories();
+            const variantResponse = await getVariants();
+            const variantTypeResponse = await getVariantTypes();
+            const brandResponse = await getBrands();
+            const posterResponse = await getPosters();
+            const couponResponse = await getCoupons();
+            const productResponse = await getProducts();
+            setState({
+                userSize: userResponse.data.length,
+                categorySize: categoryResponse.data.length,
+                subCategorySize: subCategoryResponse.data.length,
+                variantSize: variantResponse.data.length,
+                variantTypeSize: variantTypeResponse.data.length,
+                brandSize: brandResponse.data.length,
+                posterSize: posterResponse.data.length,
+                couponSize: couponResponse.data.length,
+                productSize: productResponse.data.length,
+            });
         } catch (error) {
             console.error('Error getting data:', error);
         }
     };
 
     return (
-        <main className='main-container'>
-            <div className='main-title'>
+        <main className="main-container">
+            <div className="main-title">
                 <h3>DASHBOARD</h3>
             </div>
 
-            <div className='main-cards'>
-                <div className='card'>
-                    <div className='card-inner'>
+            <div className="main-cards">
+                <div className="card" style={{ backgroundColor: '#FF6F61' }}>
+                    <div className="card-inner">
                         <h3>PRODUCTS</h3>
-                        <BsFillArchiveFill className='card_icon' />
+                        <BsFillArchiveFill className="card_icon" />
                     </div>
                     <h1>365</h1>
                 </div>
-                <div className='card'>
-                    <div className='card-inner'>
+                <div className="card" style={{ backgroundColor: '#8884D8' }}>
+                    <div className="card-inner">
                         <h3>CATEGORIES</h3>
-                        <BsFillGrid3X3GapFill className='card_icon' />
+                        <AiFillAppstore className="card_icon" />
                     </div>
-                    <h1>{categorySize}</h1>
+                    <h1>{state.categorySize}</h1>
                 </div>
-                <div className='card'>
-                    <div className='card-inner'>
+                <div className="card" style={{ backgroundColor: '#88B04B' }}>
+                    <div className="card-inner">
                         <h3>CUSTOMERS</h3>
-                        <BsPeopleFill className='card_icon' />
+                        <BsPeopleFill className="card_icon" />
                     </div>
-                    <h1>3000</h1>
+                    <h1>{state.userSize}</h1>
                 </div>
-                <div className='card'>
-                    <div className='card-inner'>
-                        <h3>ALERTS</h3>
-                        <BsFillBellFill className='card_icon' />
+                <div className="card" style={{ backgroundColor: '#E76F51' }}>
+                    <div className="card-inner">
+                        <h3>NOTIFICATIONS</h3>
+                        <BsFillBellFill className="card_icon" />
                     </div>
                     <h1>22</h1>
                 </div>
+                <div className="card" style={{ backgroundColor: '#FFB74D' }}>
+                    <div className="card-inner">
+                        <h3>SUB CATEGORIES</h3>
+                        <AiOutlineAppstore className="card_icon" />
+                    </div>
+                    <h1>{state.subCategorySize}</h1>
+                </div>
+                <div className="card" style={{ backgroundColor: '#F4A261' }}>
+                    <div className="card-inner">
+                        <h3>VARIANTS</h3>
+                        <FaClipboardCheck className="card_icon" />
+                    </div>
+                    <h1>{state.variantSize}</h1>
+                </div>
+                <div className="card" style={{ backgroundColor: '#82CA9D' }}>
+                    <div className="card-inner">
+                        <h3>VARIANTS-TYPE</h3>
+                        <RiPriceTag2Fill className="card_icon" />
+                    </div>
+                    <h1>{state.variantTypeSize}</h1>
+                </div>
+                <div className="card" style={{ backgroundColor: '#FFEB3B' }}>
+                    <div className="card-inner">
+                        <h3>COUPONS</h3>
+                        <BsFillTagFill className="card_icon" />
+                    </div>
+                    <h1>{state.couponSize}</h1>
+                </div>
+                <div className="card" style={{ backgroundColor: '#92A8D1' }}>
+                    <div className="card-inner">
+                        <h3>BRAND</h3>
+                        <FaBuilding className="card_icon" />
+                    </div>
+                    <h1>{state.brandSize}</h1>
+                </div>
+                <div className="card" style={{ backgroundColor: '#F7CAC9' }}>
+                    <div className="card-inner">
+                        <h3>POSTER</h3>
+                        <FaImage className="card_icon" />
+                    </div>
+                    <h1>{state.posterSize}</h1>
+                </div>
             </div>
 
-            <div className='charts'>
+            <div className="charts">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         width={500}
@@ -157,14 +232,18 @@ function AdminHome() {
                         <Tooltip />
                         <Legend />
                         <Line type="monotone" dataKey="amt" stroke="#ff7300" yAxisId={0} />
-                        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line
+                            type="monotone"
+                            dataKey="pv"
+                            stroke="#8884d8"
+                            activeDot={{ r: 8 }}
+                        />
                         <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
                     </LineChart>
                 </ResponsiveContainer>
-
             </div>
         </main>
-    )
+    );
 }
 
 export default AdminHome;

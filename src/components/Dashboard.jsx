@@ -1,25 +1,37 @@
-import React from "react";
-import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import axios from "axios";
+import React from 'react';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { FiHome, FiBox, FiLogOut } from 'react-icons/fi';
+import {
+  BsPeopleFill,
+  BsFillBellFill,
+  BsFillTagFill,
+} from 'react-icons/bs';
+import {
+  FaClipboardCheck,
+  FaBuilding,
+  FaImage,
+} from 'react-icons/fa';
+import {
+  AiOutlineAppstore,
+  AiFillAppstore,
+} from 'react-icons/ai';
+import { RiPriceTag2Line } from 'react-icons/ri';
+
+import { logoutUser } from '../apis/api';
 
 const Dashboard = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogout = async () => {
     try {
-      const result = await logoutUser();
-      if (result.success) {
-        localStorage.removeItem('valid');
-        localStorage.removeItem('role');
-        localStorage.removeItem('token');
-        navigate('/');
-      } else {
-        console.error('Logout error:', result.message);
-      }
+      await logoutUser();
+      localStorage.removeItem('token');
+      localStorage.removeItem('valid');
+      localStorage.removeItem('role');
+      navigate('/');
     } catch (error) {
-      console.error('Error during logout', error);
+      console.error('Error during logout:', error);
     }
   };
 
@@ -42,49 +54,129 @@ const Dashboard = () => {
             >
               <li className="w-100">
                 <Link
-                  to="/dashboard"
-                  className={`nav-link text-white px-0 align-middle ${location.pathname === '/dashboard' ? 'active' : ''}`}
+                  to="/admin/dashboard"
+                  className={`nav-link text-white px-0 align-middle ${
+                    location.pathname === '/admin/dashboard' ? 'active' : ''
+                  }`}
                 >
-                  <i className="fs-4 bi-speedometer2 ms-2 me-2"></i>Dashboard
+                  <FiHome className="fs-4 ms-2 me-2" />
+                  Dashboard
                 </Link>
               </li>
               <li className="w-100">
                 <Link
-                  to="/dashboard/users"
-                  className={`nav-link px-0 align-middle text-white ${location.pathname === '/dashboard/users' ? 'active' : ''}`}
+                  to="/admin/users"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/users' ? 'active' : ''
+                  }`}
                 >
-                  <i className="fs-4 bi-people ms-2 me-2"></i>Users
+                  <BsPeopleFill className="fs-4 ms-2 me-2" />
+                  Users
                 </Link>
               </li>
               <li className="w-100">
                 <Link
-                  to="/dashboard/categories"
-                  className={`nav-link px-0 align-middle text-white ${location.pathname === '/dashboard/categories' ? 'active' : ''}`}
+                  to="/admin/categories"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/categories' ? 'active' : ''
+                  }`}
                 >
-                  <i className="fs-4 bi-columns ms-2 me-2"></i>Categories
+                  <AiFillAppstore className="fs-4 ms-2 me-2" />
+                  Categories
                 </Link>
               </li>
               <li className="w-100">
                 <Link
-                  to="/dashboard/products"
-                  className={`nav-link px-0 align-middle text-white ${location.pathname === '/dashboard/products' ? 'active' : ''}`}
+                  to="/admin/products"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/products' ? 'active' : ''
+                  }`}
                 >
-                  <i className="fs-4 bi-archive ms-2 me-2"></i>Products
+                  <FiBox className="fs-4 ms-2 me-2" />
+                  Products
                 </Link>
               </li>
               <li className="w-100">
                 <Link
-                  to="/dashboard/profile"
-                  className={`nav-link px-0 align-middle text-white ${location.pathname === '/dashboard/profile' ? 'active' : ''}`}
+                  to="/admin/subcategories"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/subcategories' ? 'active' : ''
+                  }`}
                 >
-                  <i className="fs-4 bi-person ms-2 me-2"></i>Profile
+                  <AiOutlineAppstore className="fs-4 ms-2 me-2" />
+                  Sub Category
+                </Link>
+              </li>
+              <li className="w-100">
+                <Link
+                  to="/admin/variants"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/variants' ? 'active' : ''
+                  }`}
+                >
+                  <FaClipboardCheck className="fs-4 ms-2 me-2" />
+                  Variants
+                </Link>
+              </li>
+              <li className="w-100">
+                <Link
+                  to="/admin/variants-type"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/variants-type' ? 'active' : ''
+                  }`}
+                >
+                  <RiPriceTag2Line className="fs-4 ms-2 me-2" />
+                  Variants-Type
+                </Link>
+              </li>
+              <li className="w-100">
+                <Link
+                  to="/admin/coupons"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/coupons' ? 'active' : ''
+                  }`}
+                >
+                  <BsFillTagFill className="fs-4 ms-2 me-2" />
+                  Coupons
+                </Link>
+              </li>
+              <li className="w-100">
+                <Link
+                  to="/admin/brand"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/brand' ? 'active' : ''
+                  }`}
+                >
+                  <FaBuilding className="fs-4 ms-2 me-2" />
+                  Brand
+                </Link>
+              </li>
+              <li className="w-100">
+                <Link
+                  to="/admin/poster"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/poster' ? 'active' : ''
+                  }`}
+                >
+                  <FaImage className="fs-4 ms-2 me-2" />
+                  Poster
+                </Link>
+              </li>
+              <li className="w-100">
+                <Link
+                  to="/admin/notifications"
+                  className={`nav-link px-0 align-middle text-white ${
+                    location.pathname === '/admin/notifications' ? 'active' : ''
+                  }`}
+                >
+                  <BsFillBellFill className="fs-4 ms-2 me-2" />
+                  Notifications
                 </Link>
               </li>
               <li className="w-100" onClick={handleLogout}>
-                <Link
-                  className="nav-link px-0 align-middle text-white"
-                >
-                  <i className="fs-4 bi-power ms-2 me-2"></i>Logout
+                <Link className="nav-link px-0 align-middle text-white">
+                  <FiLogOut className="fs-4 ms-2 me-2" />
+                  Logout
                 </Link>
               </li>
             </ul>
@@ -92,7 +184,7 @@ const Dashboard = () => {
         </div>
         <div className="col p-0 m-0">
           <div className="p-2 d-flex justify-content-center shadow">
-            <h4>User Management System</h4>
+            <h4>Innovateria Shop Management System</h4>
           </div>
           <Outlet />
         </div>

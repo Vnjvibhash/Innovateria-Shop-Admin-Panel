@@ -1,7 +1,8 @@
 // api.jsx
 import axios from 'axios';
 
-// Create an instance of Axios
+const getToken = () => localStorage.getItem('token');
+
 const api = axios.create({
   baseURL: 'http://localhost:3000/api/v1',
   headers: {
@@ -9,16 +10,11 @@ const api = axios.create({
   },
   withCredentials: true,
 });
-
-// Function to get the Bearer token from localStorage
-const getToken = () => localStorage.getItem('token');
-
-// Set up an interceptor to include the Bearer token in headers
 api.interceptors.request.use(
   (config) => {
     const token = getToken();
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers['Authorization'] = token;
     }
     return config;
   },
@@ -34,7 +30,10 @@ export const loginUser = async (email, password) => {
   formData.append('password', password);
 
   try {
-    const response = await api.post('/user/login', formData);
+    const response = await api.post('/users/login', formData);
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
+    }
     return response.data;
   } catch (error) {
     console.error('Error during login:', error);
@@ -45,7 +44,7 @@ export const loginUser = async (email, password) => {
 // Function to add a new user
 export const addUser = async (userData) => {
   try {
-    const response = await api.post('/user/add', userData);
+    const response = await api.post('/users/create', userData);
     return response.data;
   } catch (error) {
     console.error('Error during adding user:', error);
@@ -56,7 +55,8 @@ export const addUser = async (userData) => {
 // Function to log out
 export const logoutUser = async () => {
   try {
-    const response = await api.post('/user/logout');
+    const response = await api.post('/users/logout');
+    localStorage.removeItem('token');
     return response.data;
   } catch (error) {
     console.error('Error during logout:', error);
@@ -85,3 +85,81 @@ export const getUsers = async () => {
     throw error;
   }
 };
+
+// Function to get all subcategories
+export const getSubcategories = async () => {
+  try {
+    const response = await api.get('/sub-categories');
+    return response.data;
+  } catch (error) {
+    console.error('Error getting subcategories:', error);
+    throw error;
+  }
+};
+
+// Function to get all products
+export const getProducts = async () => {
+  try {
+    const response = await api.get('/products');
+    return response.data;
+  } catch (error) {
+    console.error('Error getting products:', error);
+    throw error;
+  }
+};
+
+// Function to get all variants
+export const getVariants = async () => {
+  try {
+    const response = await api.get('/variants');
+    return response.data;
+  } catch (error) {
+    console.error('Error getting variants:', error);
+    throw error;
+  }
+};
+
+// Function to get all variant types
+export const getVariantTypes = async () => {
+  try {
+    const response = await api.get('/variant-types');
+    return response.data;
+  } catch (error) {
+    console.error('Error getting variant types:', error);
+    throw error;
+  }
+};
+
+// Function to get all brands
+export const getBrands = async () => {
+  try {
+    const response = await api.get('/brands');
+    return response.data;
+  } catch (error) {
+    console.error('Error getting brands:', error);
+    throw error;
+  }
+};
+
+// Function to get all posters
+export const getPosters = async () => {
+  try {
+    const response = await api.get('/posters');
+    return response.data;
+  } catch (error) {
+    console.error('Error getting posters:', error);
+    throw error;
+  }
+};
+
+// Function to get all coupons
+export const getCoupons = async () => {
+  try {
+    const response = await api.get('/coupons');
+    return response.data;
+  } catch (error) {
+    console.error('Error getting coupons:', error);
+    throw error;
+  }
+};
+
