@@ -163,3 +163,5 @@ export const getCoupons = async () => {
   }
 };
 
+// Function to get all orders
+
