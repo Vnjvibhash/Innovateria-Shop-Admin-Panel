@@ -17,7 +17,7 @@ import {
 } from 'react-icons/ai';
 import { RiPriceTag2Line } from 'react-icons/ri';
 
-import { logoutUser } from '../apis/api';
+import { logoutUser } from '../apis/user.api';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ const Dashboard = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('valid');
       localStorage.removeItem('role');
+      localStorage.removeItem('id');
       navigate('/');
     } catch (error) {
       console.error('Error during logout:', error);

@@ -1,24 +1,25 @@
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
-import Dashboard from './components/Dashboard'
-import UserDetails from './pages/UserDetails'
-import EditUser from './pages/EditUser'
-import Users from './pages/Users'
-import Categories from './pages/Categories'
-import Profile from './pages/Profile'
-import Login from './pages/Login'
-import AddUser from './pages/AddUser'
-import AdminHome from './pages/AdminHome'
-import PrivateRoute from './components/PrivateRoute'
-import Products from './pages/Products'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import UserDetails from './admin/pages/UserDetails';
+import Users from './admin/pages/Users';
+import Categories from './admin/pages/Categories';
+import Profile from './admin/pages/Profile';
+import Login from './frontend/pages/Login';
+import AdminHome from './admin/pages/AdminHome';
+import PrivateRoute from './components/PrivateRoute';
+import Products from './admin/pages/Products';
+import Home from './frontend/pages/Home';
 
-function App() {
-  return (
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />}></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<Login />} />
         <Route
           path="/admin"
           element={
@@ -29,16 +30,12 @@ function App() {
         >
           <Route path="dashboard" element={<AdminHome />} />
           <Route path="users" element={<Users />} />
-          <Route path="edit_user" element={<EditUser />} />
           <Route path="user_details" element={<UserDetails />} />
-          <Route path="add_user" element={<AddUser />} />
           <Route path="categories" element={<Categories />} />
           <Route path="products" element={<Products />} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  );
-}
-
-export default App
+  </React.StrictMode>,
+);

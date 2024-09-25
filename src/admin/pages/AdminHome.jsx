@@ -20,7 +20,9 @@ import {
     Line,
 } from 'recharts';
 import { AiFillAppstore, AiOutlineAppstore } from 'react-icons/ai';
-import { getCategories, getUsers, getSubcategories, getBrands, getCoupons, getPosters, getProducts, getVariantTypes, getVariants } from '../apis/api';
+import {  getSubcategories, getBrands, getCoupons, getPosters, getProducts, getVariantTypes, getVariants } from '../../apis/api';
+import { getUsers } from '../../apis/user.api';
+import { getCategories } from '../../apis/category.api';
 
 function AdminHome() {
     const data = [

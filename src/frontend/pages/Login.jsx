@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import '../styles/style.css';
-import { loginUser } from '../apis/api';
+import '../../styles/style.css';
+import { loginUser } from '../../apis/user.api';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [values, setValues] = useState({
-    email: '',
+    identifier: '',
     password: '',
   });
   const [checked, setCheckBox] = useState(false);
@@ -21,19 +21,20 @@ const Login = () => {
     if (checked) {
       event.preventDefault();
       try {
-        const result = await loginUser(values.email, values.password);
+        const result = await loginUser(values.identifier, values.password);
         if (result.success) {
             localStorage.setItem('valid', true);
             console.log('Login successful', result.token);
           if (result.user.role === 'admin') {
             localStorage.setItem('role', result.user.role);
             localStorage.setItem('token', result.token);
+            localStorage.setItem('id', result.user.id);
             navigate('admin/dashboard');
           } else if (result.user.role === 'user') {
             localStorage.setItem('role', 'user');
             navigate('/');
           }
-          setValues({ email: '', password: '' });
+          setValues({ identifier: '', password: '' });
           setCheckBoxVal(false);
           console.log('Login successful', result);
         } else {
@@ -42,6 +43,7 @@ const Login = () => {
       } catch (error) {
         console.error('Error during login', error);
       }
+      setCheckBoxVal(false);
     } else {
       setError('Please agree with terms & conditions');
     }
@@ -54,14 +56,16 @@ const Login = () => {
         <h2>Login Page</h2>
         <form onSubmit={handleSubmit} autoComplete="off">
           <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Email:</strong>
+            <label htmlFor="identifier">
+              <strong>Email/Mobile:</strong>
             </label>
             <input
-              type="email"
-              name="email"
-              placeholder="Enter Email"
-              onChange={(e) => setValues({ ...values, email: e.target.value })}
+              type="identifier"
+              name="identifier"
+              placeholder="Enter Email or Mobile"
+              onChange={(e) =>
+                setValues({ ...values, identifier: e.target.value })
+              }
               className="form-control rounded-0"
             />
           </div>
