@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
-  getCategories
+  getCategories,
+  addCategory,
+  updateCategory,
 } from '../../apis/category.api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -44,26 +46,26 @@ const Categories = () => {
   };
 
   const handleSave = async () => {
-    // if (isEditing) {
-    //   await updateCategory(currentCategory._id, currentCategory)
-    //     .then(() => {
-    //       toast.success('Category updated successfully');
-    //       getData();
-    //     })
-    //     .catch(() => {
-    //       toast.error('Failed to update category');
-    //     });
-    // } else {
-    //   // Add category logic
-    //   await addCategory(currentCategory)
-    //     .then(() => {
-    //       toast.success('Category added successfully');
-    //       getData();
-    //     })
-    //     .catch(() => {
-    //       toast.error('Failed to add category');
-    //     });
-    // }
+    if (isEditing) {
+      await updateCategory(currentCategory._id, currentCategory)
+        .then(() => {
+          toast.success('Category updated successfully');
+          getData();
+        })
+        .catch(() => {
+          toast.error('Failed to update category');
+        });
+    } else {
+      // Add category logic
+      await addCategory(currentCategory)
+        .then(() => {
+          toast.success('Category added successfully');
+          getData();
+        })
+        .catch(() => {
+          toast.error('Failed to add category');
+        });
+    }
     setModalOpen(false);
   };
 
@@ -170,7 +172,7 @@ const Categories = () => {
                 <div className="mb-3">
                   <label className="form-label">Image URL</label>
                   <input
-                    type="text"
+                    type="image"
                     className="form-control"
                     name="image"
                     value={currentCategory.image}

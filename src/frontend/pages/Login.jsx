@@ -10,6 +10,7 @@ const Login = () => {
   });
   const [checked, setCheckBox] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -20,16 +21,17 @@ const Login = () => {
   const handleSubmit = async (event) => {
     if (checked) {
       event.preventDefault();
+      setLoading(true);
       try {
         const result = await loginUser(values.identifier, values.password);
         if (result.success) {
-            localStorage.setItem('valid', true);
-            console.log('Login successful', result.token);
+          localStorage.setItem('valid', true);
+          console.log('Login successful', result.token);
           if (result.user.role === 'admin') {
             localStorage.setItem('role', result.user.role);
             localStorage.setItem('token', result.token);
             localStorage.setItem('id', result.user.id);
-            navigate('admin/dashboard');
+            navigate('/admin/dashboard');
           } else if (result.user.role === 'user') {
             localStorage.setItem('role', 'user');
             navigate('/');
@@ -42,8 +44,9 @@ const Login = () => {
         }
       } catch (error) {
         console.error('Error during login', error);
+      } finally {
+        setLoading(false);
       }
-      setCheckBoxVal(false);
     } else {
       setError('Please agree with terms & conditions');
     }
@@ -83,8 +86,16 @@ const Login = () => {
               className="form-control rounded-0"
             />
           </div>
-          <button className="btn btn-success w-100 rounded-0 mb-2">
-            Log in
+          <button
+            type="submit"
+            className="btn btn-success w-100 rounded-0 mb-2"
+            disabled={loading}
+          >
+            {loading ? (
+              <div className="spinner-border spinner-border-sm" role="status"></div>
+            ) : (
+              'Log in'
+            )}
           </button>
           <div className="mb-1">
             <input

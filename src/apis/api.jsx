@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const getToken = () => localStorage.getItem('token');
 
 export const api = axios.create({
-  baseURL: 'https://innovateria-shop-server.vercel.app/api/v1',
+  baseURL: 'https://innovateria-shop-server.onrender.com/api/v1',
   headers: {
     'Content-Type': 'multipart/form-data',
   },
