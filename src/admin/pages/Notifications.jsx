@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Products = () => {
+const Notifications = () => {
   const handleRefresh = () => {
     window.location.reload();
   };
@@ -32,4 +32,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Notifications;

@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Products = () => {
+const Variants = () => {
   const handleRefresh = () => {
     window.location.reload();
   };
@@ -31,5 +31,4 @@ const Products = () => {
     </div>
   );
 };
-
-export default Products;
+export default Variants;

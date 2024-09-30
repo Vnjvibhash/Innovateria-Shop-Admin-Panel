@@ -143,9 +143,9 @@ const Dashboard = () => {
               </li>
               <li className="w-100">
                 <Link
-                  to="/admin/brand"
+                  to="/admin/brands"
                   className={`nav-link px-0 align-middle text-white ${
-                    location.pathname === '/admin/brand' ? 'active' : ''
+                    location.pathname === '/admin/brands' ? 'active' : ''
                   }`}
                 >
                   <FaBuilding className="fs-4 ms-2 me-2" />
@@ -154,9 +154,9 @@ const Dashboard = () => {
               </li>
               <li className="w-100">
                 <Link
-                  to="/admin/poster"
+                  to="/admin/posters"
                   className={`nav-link px-0 align-middle text-white ${
-                    location.pathname === '/admin/poster' ? 'active' : ''
+                    location.pathname === '/admin/posters' ? 'active' : ''
                   }`}
                 >
                   <FaImage className="fs-4 ms-2 me-2" />
@@ -185,7 +185,7 @@ const Dashboard = () => {
         </div>
         <div className="col p-0 m-0">
           <div className="p-2 d-flex justify-content-center shadow">
-            <h4>Innovateria Shop Management System</h4>
+            <h4>Made with ❤️ by Innovateria.in</h4>
           </div>
           <Outlet />
         </div>

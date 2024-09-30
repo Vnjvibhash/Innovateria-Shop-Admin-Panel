@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getUsers, updateUser, addUser, deleteUser } from '../../apis/user.api';
+import { getUsers, updateUser, addUser, deleteUser } from '../../apis/index.api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

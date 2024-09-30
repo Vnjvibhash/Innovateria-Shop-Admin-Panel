@@ -3,7 +3,7 @@ import {
   getCategories,
   addCategory,
   updateCategory,
-} from '../../apis/category.api';
+} from '../../apis/index.api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -115,9 +115,10 @@ const Categories = () => {
                     src={e.image}
                     alt={e.name}
                     style={{
-                      width: '50px',
-                      height: '50px',
-                      borderRadius: '50%',
+                      width: '100px',
+                      height: '100px',
+                      padding: '20px',
+                      borderRadius: '20%',
                       objectFit: 'cover',
                     }}
                   />
@@ -172,7 +173,7 @@ const Categories = () => {
                 <div className="mb-3">
                   <label className="form-label">Image URL</label>
                   <input
-                    type="image"
+                    type="text"
                     className="form-control"
                     name="image"
                     value={currentCategory.image}

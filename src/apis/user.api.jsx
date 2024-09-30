@@ -1,12 +1,13 @@
-import { api } from './api';
+import { api } from './config';
 
 // Function to handle login
 export const loginUser = async (identifier, password) => {
-  const formData = new FormData();
-  formData.append('identifier', identifier);
-  formData.append('password', password);
+  const loginData = {
+    identifier,
+    password,
+  };
   try {
-    const response = await api.post('/users/login', formData);
+    const response = await api.post('/users/login', loginData);
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
     }
@@ -42,7 +43,6 @@ export const addUser = async (userData) => {
 // Function to update a user
 export const updateUser = async (userId, userData) => {
   try {
-    console.log(userId, userData);
     const response = await api.put(`/users/${userId}`, userData);
     return response.data;
   } catch (error) {

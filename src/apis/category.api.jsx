@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api } from './config';
 
 // Function to get all categories
 export const getCategories = async () => {
@@ -13,6 +13,7 @@ export const getCategories = async () => {
 
 // Function to add a new category
 export const addCategory = async (categoryData) => {
+  console.log(categoryData);
   try {
     const response = await api.post('/categories', categoryData);
     return response.data;
