@@ -3,6 +3,7 @@ import {
   getCategories,
   addCategory,
   updateCategory,
+  deleteCategory,
 } from '../../apis/index.api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -43,6 +44,17 @@ const Categories = () => {
     setIsEditing(true);
     setCurrentCategory(category);
     setModalOpen(true);
+  };
+
+  const handleDelete = async (category) => {
+    await deleteCategory(category._id)
+      .then(() => {
+        toast.success('Category deleted successfully');
+        getData();
+      })
+      .catch(() => {
+        toast.error('Failed to delete category');
+      });
   };
 
   const handleSave = async () => {

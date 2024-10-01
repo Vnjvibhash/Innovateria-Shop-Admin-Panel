@@ -25,7 +25,7 @@ import {
   getUsers,
   getBrands,
   getCategories,
-  getSubcategories,
+  getSubCategories,
   getCoupons,
   getPosters,
   getProducts,
@@ -99,7 +99,7 @@ function AdminHome() {
     try {
       const categoryResponse = await getCategories();
       const userResponse = await getUsers();
-      const subCategoryResponse = await getSubcategories();
+      const subCategoryResponse = await getSubCategories();
       const variantResponse = await getVariants();
       const variantTypeResponse = await getVariantTypes();
       const brandResponse = await getBrands();

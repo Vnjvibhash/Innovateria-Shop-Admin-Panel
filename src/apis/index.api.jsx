@@ -1,12 +1,29 @@
-import { loginUser, getUsers, updateUser, addUser, deleteUser, logoutUser } from "./user.api";
-import { getBrands } from "./brand.api";
-import { getCategories, addCategory, updateCategory, deleteCategory } from "./category.api";
-import { getSubcategories } from "./subCategory.api";
-import { getCoupons } from "./coupon.api";
-import { getPosters } from "./poster.api";
-import { getProducts } from "./product.api";
+import {
+  loginUser,
+  getUsers,
+  updateUser,
+  addUser,
+  deleteUser,
+  logoutUser,
+} from './user.api';
+import { getBrands, createBrand, updateBrand, deleteBrand } from './brand.api';
+import {
+  getCategories,
+  addCategory,
+  updateCategory,
+  deleteCategory,
+} from './category.api';
+import {
+  getSubCategories,
+  createSubCategory,
+  updateSubCategory,
+  deleteSubCategory,
+} from './subCategory.api';
+import { getCoupons } from './coupon.api';
+import { getPosters } from './poster.api';
+import { getProducts } from './product.api';
 import { getVariantTypes } from './variantType.api';
-import { getVariants } from "./variant.api";
+import { getVariants } from './variant.api';
 
 export {
   loginUser,
@@ -16,11 +33,17 @@ export {
   deleteUser,
   logoutUser,
   getBrands,
+  createBrand,
+  updateBrand,
+  deleteBrand,
   getCategories,
   addCategory,
   updateCategory,
   deleteCategory,
-  getSubcategories,
+  getSubCategories,
+  createSubCategory,
+  updateSubCategory,
+  deleteSubCategory,
   getCoupons,
   getPosters,
   getProducts,
