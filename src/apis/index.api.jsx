@@ -20,7 +20,7 @@ import {
   deleteSubCategory,
 } from './subCategory.api';
 import { getCoupons } from './coupon.api';
-import { getPosters } from './poster.api';
+import { getPosters, createPoster, updatePoster, deletePoster } from './poster.api';
 import { getProducts } from './product.api';
 import { getVariantTypes } from './variantType.api';
 import { getVariants } from './variant.api';
@@ -46,6 +46,9 @@ export {
   deleteSubCategory,
   getCoupons,
   getPosters,
+  createPoster,
+  updatePoster,
+  deletePoster,
   getProducts,
   getVariantTypes,
   getVariants,
