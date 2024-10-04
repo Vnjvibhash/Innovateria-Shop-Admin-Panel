@@ -10,14 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Posters = () => {
-
   const [posters, setPosters] = useState([]);
-    const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentPoster, setCurrentPoster] = useState({
     _id: '',
     posterName: '',
-    imageUrl: ''
+    imageUrl: '',
   });
 
   useEffect(() => {
@@ -25,38 +24,26 @@ const Posters = () => {
   }, []);
 
   const getData = async () => {
-    await getPosters()
-      .then((res) => {
-        setPosters(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error('Failed to load posters');
-      });
+    try {
+      const res = await getPosters();
+      setPosters(res.data);
+    } catch (err) {
+      console.log(err);
+      toast.error('Failed to load posters');
+    }
   };
 
   const handleSave = async () => {
     try {
       if (isEditing) {
-        await updatePoster(currentPoster._id, currentPoster)
-          .then(() => {
-            toast.success('Poster updated successfully');
-            getData();
-          })
-          .catch(() => {
-            toast.error('Failed to update poster');
-          });
+        await updatePoster(currentPoster._id, currentPoster);
+        toast.success('Poster updated successfully');
       } else {
-        await createPoster(currentPoster)
-          .then(() => {
-            toast.success('Poster added successfully');
-            getData();
-          })
-          .catch(() => {
-            toast.error('Failed to add poster');
-          });
+        await createPoster(currentPoster);
+        toast.success('Poster added successfully');
       }
       setModalOpen(false);
+      getData();
     } catch (error) {
       console.log('Error saving poster:', error);
       toast.error('Error saving poster');
@@ -66,57 +53,56 @@ const Posters = () => {
   const handleInputChange = (e) => {
     setCurrentPoster({
       ...currentPoster,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleAdd = () => {
-    setModalOpen(true);
     setIsEditing(false);
     setCurrentPoster({
       _id: '',
       posterName: '',
-      imageUrl: ''
+      imageUrl: '',
     });
+    setModalOpen(true);
   };
 
   const handleEdit = (poster) => {
-    setModalOpen(true);
     setIsEditing(true);
     setCurrentPoster(poster);
+    setModalOpen(true);
   };
 
   const handleDelete = async (posterId) => {
-    await deletePoster(posterId)
-      .then(() => {
-        toast.success('Poster deleted successfully');
-        getData();
-      })
-      .catch(() => {
-        toast.error('Failed to delete poster');
-      });
+    try {
+      await deletePoster(posterId);
+      toast.success('Poster deleted successfully');
+      getData();
+    } catch (error) {
+      toast.error('Failed to delete poster');
+    }
   };
 
-
-
   const handleRefresh = () => {
-    window.location.reload();
+    getData();
   };
 
   return (
     <div className="px-5 mt-3">
       <div className="d-flex justify-content-center">
-        <h3>List</h3>
+        <h3>Posters List</h3>
       </div>
+
       {/* Buttons Section */}
       <div className="d-flex justify-content-between mt-3">
-        <button className="btn btn-success" onClick={handleRefresh}>
+        <button className="btn btn-success" onClick={handleAdd}>
           Add
         </button>
         <button className="btn btn-info" onClick={handleRefresh}>
           Refresh
         </button>
       </div>
+
       <div className="mt-3">
         <table className="table">
           <thead>
@@ -130,7 +116,19 @@ const Posters = () => {
             {posters.map((poster) => (
               <tr key={poster._id}>
                 <td>{poster.posterName}</td>
-                <td>{poster.imageUrl}</td>
+                <td>
+                  <img
+                    src={poster.imageUrl}
+                    alt={poster.posterName}
+                    style={{
+                      width: '100px',
+                      height: '100px',
+                      padding: '20px',
+                      borderRadius: '20%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </td>
                 <td>
                   <button
                     className="btn btn-info btn-sm me-2"
@@ -153,26 +151,18 @@ const Posters = () => {
 
       {/* Modal Section */}
       {isModalOpen && (
-        <div
-          className="modal fade"
-          id="posterModal"
-          tabIndex="-1"
-          aria-labelledby="posterModalLabel"
-          aria-hidden="true"
-        >
+        <div className="modal fade show" style={{ display: 'block' }}>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="posterModalLabel">
+                <h5 className="modal-title">
                   {isEditing ? 'Edit Poster' : 'Add Poster'}
                 </h5>
                 <button
                   type="button"
                   className="btn-close"
                   onClick={() => setModalOpen(false)}
-                >
-                  {' '}
-                </button>
+                ></button>
               </div>
               <div className="modal-body">
                 <div className="mb-3">
