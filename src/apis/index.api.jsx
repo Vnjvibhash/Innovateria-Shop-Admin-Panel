@@ -22,7 +22,7 @@ import {
 import { getCoupons } from './coupon.api';
 import { getPosters, createPoster, updatePoster, deletePoster } from './poster.api';
 import { getProducts } from './product.api';
-import { getVariantTypes } from './variantType.api';
+import { getVariantTypes, createVariantType, updateVariantType, deleteVariantType } from './variantType.api';
 import { getVariants } from './variant.api';
 
 export {
@@ -51,5 +51,8 @@ export {
   deletePoster,
   getProducts,
   getVariantTypes,
+  createVariantType,
+  updateVariantType,
+  deleteVariantType,
   getVariants,
 };
