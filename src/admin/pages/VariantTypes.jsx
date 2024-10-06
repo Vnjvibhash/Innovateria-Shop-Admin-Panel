@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getVariantTypes, createVariantType, updateVariantType, deleteVariantType } from '../../apis/index.api';
+import {
+  getVariantTypes,
+  createVariantType,
+  updateVariantType,
+  deleteVariantType,
+} from '../../apis/index.api';
 
 const VariantTypes = () => {
   const [variantTypes, setVariantTypes] = useState([]);
@@ -11,7 +16,7 @@ const VariantTypes = () => {
   const [currentVariantTypes, setCurrentVariantTypes] = useState({
     _id: '',
     name: '',
-    type: ''
+    type: '',
   });
 
   useEffect(() => {
@@ -21,10 +26,10 @@ const VariantTypes = () => {
   const getData = async () => {
     try {
       const res = await getVariantTypes();
-      setVariantTypes(res.data)
+      setVariantTypes(res.data);
     } catch (error) {
       console.log(error);
-      toast.error('Fieled to load VariantTypes')
+      toast.error('Fieled to load VariantTypes');
     }
   };
 
@@ -62,7 +67,7 @@ const VariantTypes = () => {
       console.log('Error saving Variant Type:', error);
       toast.error('Error saving Variant Type');
     }
-  }
+  };
 
   const handleDelete = async (id) => {
     try {

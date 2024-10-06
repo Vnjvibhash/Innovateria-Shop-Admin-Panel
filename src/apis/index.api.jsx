@@ -6,7 +6,12 @@ import {
   deleteUser,
   logoutUser,
 } from './user.api';
-import { getBrands, createBrand, updateBrand, deleteBrand } from './brand.api';
+import {
+  getBrands,
+  createBrand,
+  updateBrand,
+  deleteBrand,
+} from './brand.api';
 import {
   getCategories,
   addCategory,
@@ -20,10 +25,25 @@ import {
   deleteSubCategory,
 } from './subCategory.api';
 import { getCoupons } from './coupon.api';
-import { getPosters, createPoster, updatePoster, deletePoster } from './poster.api';
+import {
+  getPosters,
+  createPoster,
+  updatePoster,
+  deletePoster,
+} from './poster.api';
 import { getProducts } from './product.api';
-import { getVariantTypes, createVariantType, updateVariantType, deleteVariantType } from './variantType.api';
-import { getVariants } from './variant.api';
+import {
+  getVariantTypes,
+  createVariantType,
+  updateVariantType,
+  deleteVariantType,
+} from './variantType.api';
+import {
+  getVariants,
+  createVariant,
+  updateVariant,
+  deleteVariant,
+} from './variant.api';
 
 export {
   loginUser,
@@ -55,4 +75,7 @@ export {
   updateVariantType,
   deleteVariantType,
   getVariants,
+  createVariant,
+  updateVariant,
+  deleteVariant,
 };
