@@ -46,9 +46,9 @@ const VariantTypes = () => {
     setModalOpen(true);
   };
 
-  const handleEdit = () => {
+  const handleEdit = (variantType) => {
     setIsEditing(true);
-    setCurrentVariantTypes(variantTypes);
+    setCurrentVariantTypes(variantType);
     setModalOpen(true);
   };
 

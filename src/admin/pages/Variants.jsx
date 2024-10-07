@@ -48,9 +48,13 @@ const Variants = () => {
     setModalOpen(true);
   };
 
-  const handleEdit = () => {
+  const handleEdit = (variant) => {
     setIsEditing(true);
-    setCurrentVariant(variants);
+    setCurrentVariant({
+      _id: variant._id,
+      name: variant.name,
+      variantTypeId: variant.variantTypeId._id,
+    });
     setModalOpen(true);
   };
 
@@ -73,15 +77,11 @@ const Variants = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteVariant(id)
-        .then(() => {
-          toast.success('Variant deleted successfully');
-          getData();
-        })
-        .catch(() => {
-          toast.error('Failed to delete variant');
-        });
+      await deleteVariant(id);
+      toast.success('Variant deleted successfully');
+      getData();
     } catch (error) {
+      console.log('Error deleting variant:', error);
       toast.error('Error deleting variant');
     }
   };
@@ -117,7 +117,7 @@ const Variants = () => {
             {variants.map((variant) => (
               <tr key={variant._id}>
                 <td>{variant.name}</td>
-                <td>{variant.variantTypeId.name}</td>
+                <td>{variant.variantTypeId?.name}</td>
                 <td className="text-end">
                   <button
                     className="btn btn-info btn-sm me-2"
@@ -140,7 +140,7 @@ const Variants = () => {
 
       {/* Modal Section */}
       {isModalOpen && (
-        <div className="modal">
+        <div className="modal" tabIndex="-1" style={{ display: 'block' }}>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -174,13 +174,13 @@ const Variants = () => {
                   <select
                     className="form-select"
                     name="variantTypeId"
-                    value={variants.variantTypeId}
+                    value={currentVariant.variantTypeId}
                     onChange={handleInputChange}
                   >
                     <option value="">Select Variant Type</option>
-                    {variantTypes.map((variant) => (
-                      <option key={variant._id} value={variant._id}>
-                        {variant.name}
+                    {variantTypes.map((type) => (
+                      <option key={type._id} value={type._id}>
+                        {type.name}
                       </option>
                     ))}
                   </select>
@@ -212,4 +212,5 @@ const Variants = () => {
     </div>
   );
 };
+
 export default Variants;
