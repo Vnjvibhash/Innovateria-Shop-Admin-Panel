@@ -6,12 +6,7 @@ import {
   deleteUser,
   logoutUser,
 } from './user.api';
-import {
-  getBrands,
-  createBrand,
-  updateBrand,
-  deleteBrand,
-} from './brand.api';
+import { getBrands, createBrand, updateBrand, deleteBrand } from './brand.api';
 import {
   getCategories,
   addCategory,
@@ -24,7 +19,14 @@ import {
   updateSubCategory,
   deleteSubCategory,
 } from './subCategory.api';
-import { getCoupons } from './coupon.api';
+import {
+  getCoupons,
+  getCoupon,
+  createCoupon,
+  updateCoupon,
+  deleteCoupon,
+  validateCoupon,
+} from './coupon.api';
 import {
   getPosters,
   createPoster,
@@ -65,6 +67,11 @@ export {
   updateSubCategory,
   deleteSubCategory,
   getCoupons,
+  getCoupon,
+  createCoupon,
+  updateCoupon,
+  deleteCoupon,
+  validateCoupon,
   getPosters,
   createPoster,
   updatePoster,
