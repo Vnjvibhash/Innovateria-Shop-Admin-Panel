@@ -33,7 +33,13 @@ import {
   updatePoster,
   deletePoster,
 } from './poster.api';
-import { getProducts } from './product.api';
+import {
+  getProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from './product.api';
 import {
   getVariantTypes,
   createVariantType,
@@ -77,6 +83,10 @@ export {
   updatePoster,
   deletePoster,
   getProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
   getVariantTypes,
   createVariantType,
   updateVariantType,
