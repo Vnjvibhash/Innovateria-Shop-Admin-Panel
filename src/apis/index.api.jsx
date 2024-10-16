@@ -15,6 +15,7 @@ import {
 } from './category.api';
 import {
   getSubCategories,
+  getSubCategoriesByCategory,
   createSubCategory,
   updateSubCategory,
   deleteSubCategory,
@@ -69,6 +70,7 @@ export {
   updateCategory,
   deleteCategory,
   getSubCategories,
+  getSubCategoriesByCategory,
   createSubCategory,
   updateSubCategory,
   deleteSubCategory,

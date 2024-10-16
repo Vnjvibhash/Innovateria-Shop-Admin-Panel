@@ -11,6 +11,17 @@ export const getSubCategories = async () => {
   }
 };
 
+// Function to get subcategories by category ID
+export const getSubCategoriesByCategory = async (categoryId) => {
+  try {
+    const response = await api.get(`/sub-categories/cat/${categoryId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting subcategories by category ID:', error);
+    throw error;
+  }
+};
+
 // Function to add a new subcategory
 export const createSubCategory = async (subcategoryData) => {
   try {
